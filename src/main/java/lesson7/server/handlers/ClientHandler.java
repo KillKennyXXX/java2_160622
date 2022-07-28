@@ -14,7 +14,7 @@ public class ClientHandler {
     private static final String AUTHERR_CMD_PREFIX = "/autherr"; // + error message
     private static final String CLIENT_MSG_CMD_PREFIX = "/cMsg"; // + msg
     private static final String SERVER_MSG_CMD_PREFIX = "/sMsg"; // + msg
-    private static final String PRIVATE_MSG_CMD_PREFIX = "/pm"; // + username + msg
+    private static final String PRIVATE_MSG_CMD_PREFIX = "/w"; // + username + msg
     private static final String STOP_SERVER_CMD_PREFIX = "/stop";
     private static final String END_CLIENT_CMD_PREFIX = "/end";
     private MyServer myServer;
@@ -101,9 +101,7 @@ public class ClientHandler {
             switch (typeMessage) {
                 case STOP_SERVER_CMD_PREFIX -> myServer.stop();
                 case END_CLIENT_CMD_PREFIX -> closeConnection();
-                case PRIVATE_MSG_CMD_PREFIX -> {
-                    //TODO
-                }
+                case PRIVATE_MSG_CMD_PREFIX -> myServer.privateMessage(this, message);
                 default -> myServer.broadcastMessage(this, message);
             }
 
