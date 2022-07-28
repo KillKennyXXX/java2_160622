@@ -84,4 +84,22 @@ public class MyServer {
             client.sendMessage(sender.getUsername(), message);
         }
     }
+
+    public void privateMessage(ClientHandler sender, String message) throws IOException{
+        String[] parts = message.split("\\s+");
+        if (parts.length != 3) {
+            System.out.println("Неверный формат отправки приватного сообщения: " + message);
+            return;
+        }
+        String toClient = parts[1];
+        String privateMessage = parts[2];
+        for (ClientHandler client : clients) {
+            if (client.getUsername().equals(toClient)) {
+                client.sendMessage(sender.getUsername() ,  privateMessage);
+                return;
+            }
+
+        }
+        System.out.println("Пользователь " + toClient + " не найден в чате");
+    }
 }
